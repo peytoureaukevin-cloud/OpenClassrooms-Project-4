@@ -1,0 +1,196 @@
+[
+    {
+        "name": "Test",
+        "location": "Rome",
+        "start_date": "08/06/2026",
+        "end_date": "09/06/2026",
+        "rounds_number": 3,
+        "current_round": 3,
+        "rounds": [
+            {
+                "name": "Round 1",
+                "matches": [
+                    [
+                        [
+                            {
+                                "first_name": "Deep",
+                                "last_name": "Blue",
+                                "birth_date": "01/01/1990",
+                                "chess_id": "DB01010",
+                                "score": 3.0
+                            },
+                            1.0
+                        ],
+                        [
+                            {
+                                "first_name": "Hikaru",
+                                "last_name": "Nakamura",
+                                "birth_date": "09/12/1987",
+                                "chess_id": "HN09128",
+                                "score": 0.0
+                            },
+                            0.0
+                        ]
+                    ],
+                    [
+                        [
+                            {
+                                "first_name": "Garry",
+                                "last_name": "Kasparov",
+                                "birth_date": "13/04/1963",
+                                "chess_id": "GK63043",
+                                "score": 2.0
+                            },
+                            1.0
+                        ],
+                        [
+                            {
+                                "first_name": "Magnus",
+                                "last_name": "Carlsen",
+                                "birth_date": "30/11/1990",
+                                "chess_id": "MC30119",
+                                "score": 1.0
+                            },
+                            0.0
+                        ]
+                    ]
+                ],
+                "start_date": "08/06/2026 14:26:04",
+                "end_date": "08/06/2026 14:26:09"
+            },
+            {
+                "name": "Round 2",
+                "matches": [
+                    [
+                        [
+                            {
+                                "first_name": "Deep",
+                                "last_name": "Blue",
+                                "birth_date": "01/01/1990",
+                                "chess_id": "DB01010",
+                                "score": 3.0
+                            },
+                            1.0
+                        ],
+                        [
+                            {
+                                "first_name": "Garry",
+                                "last_name": "Kasparov",
+                                "birth_date": "13/04/1963",
+                                "chess_id": "GK63043",
+                                "score": 2.0
+                            },
+                            0.0
+                        ]
+                    ],
+                    [
+                        [
+                            {
+                                "first_name": "Magnus",
+                                "last_name": "Carlsen",
+                                "birth_date": "30/11/1990",
+                                "chess_id": "MC30119",
+                                "score": 1.0
+                            },
+                            1.0
+                        ],
+                        [
+                            {
+                                "first_name": "Hikaru",
+                                "last_name": "Nakamura",
+                                "birth_date": "09/12/1987",
+                                "chess_id": "HN09128",
+                                "score": 0.0
+                            },
+                            0.0
+                        ]
+                    ]
+                ],
+                "start_date": "08/06/2026 14:26:09",
+                "end_date": "08/06/2026 14:26:11"
+            },
+            {
+                "name": "Round 3",
+                "matches": [
+                    [
+                        [
+                            {
+                                "first_name": "Deep",
+                                "last_name": "Blue",
+                                "birth_date": "01/01/1990",
+                                "chess_id": "DB01010",
+                                "score": 3.0
+                            },
+                            1.0
+                        ],
+                        [
+                            {
+                                "first_name": "Magnus",
+                                "last_name": "Carlsen",
+                                "birth_date": "30/11/1990",
+                                "chess_id": "MC30119",
+                                "score": 1.0
+                            },
+                            0.0
+                        ]
+                    ],
+                    [
+                        [
+                            {
+                                "first_name": "Garry",
+                                "last_name": "Kasparov",
+                                "birth_date": "13/04/1963",
+                                "chess_id": "GK63043",
+                                "score": 2.0
+                            },
+                            1.0
+                        ],
+                        [
+                            {
+                                "first_name": "Hikaru",
+                                "last_name": "Nakamura",
+                                "birth_date": "09/12/1987",
+                                "chess_id": "HN09128",
+                                "score": 0.0
+                            },
+                            0.0
+                        ]
+                    ]
+                ],
+                "start_date": "08/06/2026 14:26:11",
+                "end_date": "08/06/2026 14:26:15"
+            }
+        ],
+        "players": [
+            {
+                "first_name": "Garry",
+                "last_name": "Kasparov",
+                "birth_date": "13/04/1963",
+                "chess_id": "GK63043",
+                "score": 2.0
+            },
+            {
+                "first_name": "Deep",
+                "last_name": "Blue",
+                "birth_date": "01/01/1990",
+                "chess_id": "DB01010",
+                "score": 3.0
+            },
+            {
+                "first_name": "Magnus",
+                "last_name": "Carlsen",
+                "birth_date": "30/11/1990",
+                "chess_id": "MC30119",
+                "score": 1.0
+            },
+            {
+                "first_name": "Hikaru",
+                "last_name": "Nakamura",
+                "birth_date": "09/12/1987",
+                "chess_id": "HN09128",
+                "score": 0.0
+            }
+        ],
+        "description": ""
+    }
+]

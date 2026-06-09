@@ -1,0 +1,29 @@
+[
+    {
+        "first_name": "Garry",
+        "last_name": "Kasparov",
+        "birth_date": "13/04/1963",
+        "chess_id": "GK63043"
+    },
+    {
+        "first_name": "Deep",
+        "last_name": "Blue",
+        "birth_date": "01/01/1990",
+        "chess_id": "DB01010"
+    },
+    {
+        "first_name": "Magnus",
+        "last_name": "Carlsen",
+        "birth_date": "30/11/1990",
+        "chess_id": "MC30119"
+    },
+    {
+        "first_name": "Hikaru",
+        "last_name": "Nakamura",
+        "birth_date": "09/12/1987",
+        "chess_id": "HN09128"
+    }
+
+
+    
+]
