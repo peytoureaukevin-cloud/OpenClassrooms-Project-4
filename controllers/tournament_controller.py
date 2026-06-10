@@ -9,10 +9,14 @@ from views.tournament_view import TournamentView
 
 
 class TournamentController:
+    """Handle tournament creation, round generation, persistence, and reporting."""
+
     def __init__(self):
+        """Initialize the tournament controller with its associated view."""
         self.view = TournamentView()
 
     def ask_and_apply_match_scores(self, match):
+        """Ask the user for a valid match result and update both match and player scores."""
         while True:
             score_1 = self.view.ask_score(
                 f"{match.player_1.first_name} {match.player_1.last_name}"
@@ -21,6 +25,7 @@ class TournamentController:
                 f"{match.player_2.first_name} {match.player_2.last_name}"
             )
 
+            # Only valid chess results are accepted.
             if (
                 (score_1 == 1 and score_2 == 0)
                 or (score_1 == 0 and score_2 == 1)
@@ -30,12 +35,14 @@ class TournamentController:
 
             self.view.show_score_error()
 
+        # Save the match result and update the cumulative score of each player.
         match.score_1 = score_1
         match.score_2 = score_2
         match.player_1.score += score_1
         match.player_2.score += score_2
 
     def get_previous_pairs(self, rounds):
+        """Return a set of player pairs that have already played against each other."""
         previous_pairs = set()
 
         for round_obj in rounds:
@@ -51,6 +58,7 @@ class TournamentController:
         return previous_pairs
 
     def generate_first_round_matches(self, players):
+        """Generate the first round by shuffling players randomly and pairing them."""
         players_for_round = players[:]
         random.shuffle(players_for_round)
 
@@ -61,6 +69,7 @@ class TournamentController:
         return matches
 
     def build_matches_without_rematch(self, available_players, previous_pairs):
+        """Build valid matches recursively while avoiding rematches."""
         if not available_players:
             return []
 
@@ -70,6 +79,7 @@ class TournamentController:
             player_2 = available_players[index]
             pair = frozenset({player_1.chess_id, player_2.chess_id})
 
+            # Skip this pairing if the two players have already met.
             if pair in previous_pairs:
                 continue
 
@@ -85,9 +95,11 @@ class TournamentController:
         return None
 
     def generate_next_round_matches(self, players, previous_pairs):
+        """Generate the next round based on scores while avoiding previous pairings."""
         players_for_round = players[:]
         random.shuffle(players_for_round)
 
+        # Sort by score first, then by name for a stable and readable order.
         sorted_players = sorted(
             players_for_round,
             key=lambda player: (-player.score, player.last_name.lower(), player.first_name.lower()),
@@ -96,6 +108,7 @@ class TournamentController:
         return self.build_matches_without_rematch(sorted_players, previous_pairs)
 
     def load_players_for_tournament(self):
+        """Load all saved players and reset their score for a new tournament."""
         with open("data/players.json", "r", encoding="utf-8") as file:
             players_data = json.load(file)
 
@@ -114,12 +127,14 @@ class TournamentController:
         return players
 
     def load_tournaments(self):
+        """Load saved tournaments from JSON and rebuild Tournament objects."""
         with open("data/tournaments.json", "r", encoding="utf-8") as file:
             tournaments_data = json.load(file)
 
         return [Tournament.from_dict(data) for data in tournaments_data]
 
     def save_tournament(self, tournament):
+        """Append a tournament to the JSON storage file."""
         with open("data/tournaments.json", "r", encoding="utf-8") as file:
             tournaments_data = json.load(file)
 
@@ -129,12 +144,14 @@ class TournamentController:
             json.dump(tournaments_data, file, indent=4, ensure_ascii=False)
 
     def play_round(self, round_obj):
+        """Play all matches of a round, then close the round."""
         for match in round_obj.matches:
             self.ask_and_apply_match_scores(match)
 
         round_obj.close_round()
 
     def create_tournament_ctrl(self):
+        """Create a tournament, generate and play its rounds, then save and display it."""
         while True:
             tournament_info = self.view.ask_tournament_info()
 
@@ -146,6 +163,7 @@ class TournamentController:
 
             self.view.show_date_order_error()
 
+        # Create the tournament object from user input.
         tournament = Tournament(
             tournament_info["name"],
             tournament_info["location"],
@@ -153,16 +171,20 @@ class TournamentController:
             end_date.strftime("%d/%m/%Y"),
         )
 
+        # Load the available players who will participate in the tournament.
         tournament.players = self.load_players_for_tournament()
 
+        # A tournament requires a valid even number of players.
         if len(tournament.players) < 2 or len(tournament.players) % 2 != 0:
             print("\nA tournament requires an even number of players.")
             return
 
+        # Without rematches, the maximum number of rounds is number of players minus one.
         max_rounds_without_rematch = len(tournament.players) - 1
         if tournament.rounds_number > max_rounds_without_rematch:
             tournament.rounds_number = max_rounds_without_rematch
 
+        # Generate and play each round one by one.
         for round_number in range(1, tournament.rounds_number + 1):
             if round_number == 1:
                 matches = self.generate_first_round_matches(tournament.players)
@@ -182,8 +204,10 @@ class TournamentController:
             tournament.rounds.append(round_obj)
             tournament.current_round = round_number
 
+        # Save the tournament once all playable rounds are complete.
         self.save_tournament(tournament)
 
+        # Display a summary of the saved tournament.
         self.view.show_tournament_created(tournament)
         self.view.show_registered_players(tournament.players)
 
@@ -193,6 +217,7 @@ class TournamentController:
                 self.view.show_match_result(match)
 
     def show_tournaments_ctrl(self):
+        """Display the list of all saved tournaments."""
         tournaments = self.load_tournaments()
 
         if not tournaments:
@@ -203,6 +228,7 @@ class TournamentController:
         self.view.show_tournaments_list(tournaments_data)
 
     def show_one_tournament_ctrl(self):
+        """Display the full details of one selected tournament."""
         tournaments = self.load_tournaments()
 
         if not tournaments:
@@ -227,6 +253,7 @@ class TournamentController:
             print("Invalid tournament number.")
 
     def resume_tournament_ctrl(self):
+        """Load one saved tournament as an object and display a confirmation."""
         tournaments = self.load_tournaments()
 
         if not tournaments:

@@ -2,10 +2,14 @@ from datetime import datetime
 
 
 class TournamentView:
+    """Handle user interaction and tournament-related display in the console."""
+
     def __init__(self):
+        """Initialize the tournament view."""
         pass
 
     def ask_non_empty_input(self, message):
+        """Ask for user input until a non-empty value is provided."""
         while True:
             value = input(message).strip()
             if value:
@@ -13,6 +17,7 @@ class TournamentView:
             print("This field cannot be empty.")
 
     def ask_valid_date(self, message):
+        """Ask for a date and validate the DD/MM/YYYY format."""
         while True:
             value = input(message).strip()
             try:
@@ -22,6 +27,7 @@ class TournamentView:
                 print("Invalid date format. Please use DD/MM/YYYY.")
 
     def ask_score(self, player_name):
+        """Ask for a valid chess score for a given player."""
         while True:
             value = input(f"Score for {player_name}: ").strip()
             try:
@@ -33,6 +39,7 @@ class TournamentView:
                 print("Please enter a valid number.")
 
     def ask_tournament_info(self):
+        """Collect the information required to create a tournament."""
         tournament_info = {}
         tournament_info["name"] = self.ask_non_empty_input("Tournament name: ")
         tournament_info["location"] = self.ask_non_empty_input("Tournament location: ")
@@ -41,29 +48,36 @@ class TournamentView:
         return tournament_info
 
     def show_tournament_created(self, tournament):
+        """Display a confirmation once a tournament has been created."""
         print("\nTournament created:")
         print(tournament)
 
     def show_registered_players(self, players):
+        """Display the players registered in the tournament."""
         print("\nRegistered players:")
         for player in players:
             print(player)
 
     def show_round_created(self, round_obj):
+        """Display information about a created round."""
         print("\nRound created:")
         print(round_obj)
 
     def show_match_result(self, match):
+        """Display the result of a match."""
         print("\nMatch result:")
         print(match)
 
     def show_date_order_error(self):
+        """Display an error when the end date is earlier than the start date."""
         print("End date cannot be earlier than start date.")
 
     def show_score_error(self):
+        """Display an error for an invalid score combination."""
         print("Invalid score combination. Allowed results are 1/0, 0/1 or 0.5/0.5.")
 
     def show_tournaments_list(self, tournaments):
+        """Display the list of saved tournaments."""
         print("\nTournaments list:")
         for index, tournament in enumerate(tournaments, start=1):
             print(
@@ -72,9 +86,11 @@ class TournamentView:
             )
 
     def ask_tournament_index(self):
+        """Ask the user to select a tournament by its number."""
         return input("Select tournament number: ")
 
     def show_tournament_details(self, tournament):
+        """Display the main information of one tournament."""
         print("\nTournament details:")
         print(f"Name: {tournament['name']}")
         print(f"Location: {tournament['location']}")
@@ -82,7 +98,10 @@ class TournamentView:
         print(f"End date: {tournament['end_date']}")
 
     def show_tournament_players(self, tournament):
+        """Display tournament players in alphabetical order."""
         print("\nTournament players (alphabetical order):")
+
+        # Sort players by last name for a cleaner and more readable report.
         players_sorted = sorted(
             tournament["players"],
             key=lambda player: player["last_name"].lower()
@@ -96,6 +115,7 @@ class TournamentView:
             )
 
     def show_tournament_rounds_and_matches(self, tournament):
+        """Display all rounds of a tournament and the matches they contain."""
         print("\nTournament rounds and matches:")
 
         for round_obj in tournament["rounds"]:
@@ -104,6 +124,8 @@ class TournamentView:
             print(f"End: {round_obj['end_date']}")
 
             for match in round_obj["matches"]:
+                # Each match is stored as:
+                # [[player_1_dict, score_1], [player_2_dict, score_2]]
                 player_1 = match[0][0]
                 score_1 = match[0][1]
                 player_2 = match[1][0]

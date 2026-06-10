@@ -3,11 +3,13 @@ from controllers.tournament_controller import TournamentController
 
 
 def main():
+    """Run the main menu loop of the chess tournament application."""
     player_ctrl = PlayerController()
     tournament_ctrl = TournamentController()
     running = True
 
     while running:
+        # Display the main menu options available to the user.
         print("\nChess Tournament Manager")
         print("1. Show players")
         print("2. Add player")
@@ -19,6 +21,7 @@ def main():
 
         choice = input("Your choice: ")
 
+        # Redirect the user choice to the appropriate controller action.
         if choice == "1":
             player_ctrl.show_players_ctrl()
         elif choice == "2":

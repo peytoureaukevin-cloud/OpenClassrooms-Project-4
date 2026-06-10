@@ -3,6 +3,8 @@ from models.round import Round
 
 
 class Tournament:
+    """Represent a chess tournament with its players, rounds, and main information."""
+
     def __init__(
         self,
         name: str,
@@ -15,6 +17,7 @@ class Tournament:
         players=None,
         description=""
     ):
+        """Initialize a tournament with its metadata, rounds, players, and description."""
         self.name = name
         self.location = location
         self.start_date = start_date
@@ -26,12 +29,14 @@ class Tournament:
         self.description = description
 
     def __str__(self):
+        """Return a readable string representation of the tournament."""
         return (
             f"{self.name} - {self.location} - "
             f"{self.start_date} to {self.end_date}"
         )
 
     def to_dict(self):
+        """Convert the tournament into a JSON-serializable dictionary."""
         return {
             "name": self.name,
             "location": self.location,
@@ -46,6 +51,8 @@ class Tournament:
 
     @classmethod
     def from_dict(cls, data):
+        """Rebuild a Tournament object from saved JSON data."""
+        # Recreate all nested Player and Round objects from serialized data.
         players = [Player.from_dict(player_data) for player_data in data["players"]]
         rounds = [Round.from_dict(round_data) for round_data in data["rounds"]]
 
