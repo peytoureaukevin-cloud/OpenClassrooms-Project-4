@@ -47,6 +47,49 @@ class TournamentView:
         tournament_info["end_date"] = self.ask_valid_date("End date (DD/MM/YYYY): ")
         return tournament_info
 
+    def show_available_players(self, players):
+        """Display all available players with an index for tournament selection."""
+        print("\nAvailable players:")
+        for index, player in enumerate(players, start=1):
+            print(
+                f"{index}. {player.first_name} {player.last_name} - "
+                f"{player.birth_date} - {player.chess_id}"
+            )
+
+    def ask_player_selection(self, max_index):
+        """Ask the user to select players by entering comma-separated numbers."""
+        while True:
+            choice = input(
+                "Select player numbers separated by commas "
+                "(example: 1,2,3,4): "
+            ).strip()
+
+            if not choice:
+                print("Selection cannot be empty.")
+                continue
+
+            parts = [part.strip() for part in choice.split(",")]
+
+            if not all(part.isdigit() for part in parts):
+                print("Please enter only numbers separated by commas.")
+                continue
+
+            indexes = [int(part) for part in parts]
+
+            if len(indexes) != len(set(indexes)):
+                print("You cannot select the same player twice.")
+                continue
+
+            if any(index < 1 or index > max_index for index in indexes):
+                print("One or more selected numbers are invalid.")
+                continue
+
+            return indexes
+
+    def show_invalid_player_count_error(self):
+        """Display an error when the selected number of players is invalid."""
+        print("A tournament requires an even number of selected players.")
+
     def show_tournament_created(self, tournament):
         """Display a confirmation once a tournament has been created."""
         print("\nTournament created:")
@@ -101,7 +144,6 @@ class TournamentView:
         """Display tournament players in alphabetical order."""
         print("\nTournament players (alphabetical order):")
 
-        # Sort players by last name for a cleaner and more readable report.
         players_sorted = sorted(
             tournament["players"],
             key=lambda player: player["last_name"].lower()
@@ -124,8 +166,6 @@ class TournamentView:
             print(f"End: {round_obj['end_date']}")
 
             for match in round_obj["matches"]:
-                # Each match is stored as:
-                # [[player_1_dict, score_1], [player_2_dict, score_2]]
                 player_1 = match[0][0]
                 score_1 = match[0][1]
                 player_2 = match[1][0]
