@@ -10,11 +10,15 @@ python3 --version
 
 Once Python is available, open a terminal in the root folder of the project and install the dependencies with this command:
 
+```console
 python3 -m pip install -r requirements.txt
+```
 
 After the dependencies are installed, you can launch the program directly from the root folder of the project with the following command:
 
+```console
 python3 main.py
+```
 
 This command starts the application in the terminal. When the program launches correctly, the following menu is displayed:
 
@@ -84,11 +88,15 @@ The models folder contains the business entities of the application: Player, Mat
 
 Code quality is checked with flake8. To run flake8 in the terminal from the root folder of the project, use the following command:
 
+```console
 python3 -m flake8 .
+```
 
 To generate the HTML flake8 report, run:
 
+```console
 python3 -m flake8 --format=html --htmldir=flake8_rapport
+```
 
 The HTML report is then available in:
 
