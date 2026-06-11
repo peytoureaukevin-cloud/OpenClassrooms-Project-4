@@ -4,7 +4,9 @@ Chess Tournament Manager is a console-based Python application developed as part
 
 Before using the project, make sure that Python 3 is installed on your machine. You can check your Python version by opening a terminal and running the following command:
 
+```console
 python3 --version
+```
 
 Once Python is available, open a terminal in the root folder of the project and install the dependencies with this command:
 
